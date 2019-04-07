@@ -1,0 +1,19 @@
+name: devman
+version: 0.1.0
+description: A development management tool
+
+authors:
+  - Chris Larsen
+
+development_dependencies:
+  minitest:
+    github: ysbaddaden/minitest.cr
+    version: "0.4.2"
+
+targets:
+  devman:
+    main: src/devman.cr
+
+crystal: 0.27.2
+
+license: MIT
