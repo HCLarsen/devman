@@ -1,6 +1,6 @@
 require "yaml"
 
-class Preferences
+struct Preferences
   @home_folder = "/Users/#{`whoami`.chomp}/"
 
   YAML.mapping(
