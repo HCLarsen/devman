@@ -9,6 +9,11 @@ struct Preferences
     editor: {type: String, default: "Atom"}
   )
 
+  private def initialize
+    @project_folder = HOME_FOLDER + "workspace"
+    @editor = "Atom"
+  end
+
   def self.load : Preferences
     if @@instance.nil?
       from_yaml("")
