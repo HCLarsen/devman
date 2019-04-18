@@ -2,21 +2,23 @@ require "yaml"
 
 struct Preferences
   @@instance : Preferences?
-  HOME_FOLDER = "/Users/#{`whoami`.chomp}/"
 
   YAML.mapping(
-    project_folder: {type: String, default: HOME_FOLDER + "workspace"},
+    project_folder: {type: String, default: File.expand_path("workspace")},
     editor: {type: String, default: "Atom"}
   )
 
   private def initialize
-    @project_folder = HOME_FOLDER + "workspace"
+    @project_folder = File.expand_path("workspace")
     @editor = "Atom"
   end
 
+  # Loads the preferences from the config file.
   def self.load : Preferences
+    filename = ".dmconfig"
     if @@instance.nil?
-      from_yaml("")
+      content = File.exists?(filename) ? File.read(filename) : ""
+      from_yaml(content)
     else
       @@instance.not_nil!
     end
