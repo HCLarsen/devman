@@ -25,6 +25,14 @@ devman -n "Test Project" Crystal test
 devman -n "Test Project" Crystal
 ```
 
+### Adding an existing project to the devman configuration
+
+The Development Manager keeps track of projects through an internal list. You can add an existing project on your computer to this list using the -a(--add) flag. The format for this flag is `devman -a [project ID] [project folder]`. As with the -n flag, if the project folder is omitted, then it is taken to assume that the project ID and project folder are the same. As such, devman will return an error if there are any spaces in the project ID.
+
+```
+devman - a "Test Project" test
+```
+
 ### Opening an existing project
 
 Any project that you've created through DevMan, or added to the DevMan project list, can be opened using the -o(--open) flag. As the DevMan tool already has all necessary information on the project, all that's needed to open it is the project ID.
@@ -47,7 +55,7 @@ devman -c dir Workspace
 
 The configuration of each project can be done with the -e(--edit) flag. The format for this function is `devman -e [project ID] [setting] [value]`, similar to the global config.
 ```
-devman -c editor "Visual Studio Code"
+devman -e "Test Project" editor "Visual Studio Code"
 ```
 
 ## Development
