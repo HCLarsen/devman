@@ -6,17 +6,19 @@ class PreferencesTest < Minitest::Test
   def initialize(arg)
     super(arg)
 
+    @home_folder = File.expand_path("~")
+    @config_file = ".dmconfig"
+
     @preferences = Preferences.load
   end
 
   def setup
-    Dir.cd(File.expand_path("~"))
+    Dir.cd(@home_folder)
   end
 
   def teardown
-    filename = ".dmconfig"
-    if File.exists?(filename)
-      File.delete(filename)
+    if File.exists?(@config_file)
+      File.delete(@config_file)
     end
   end
 
@@ -53,5 +55,23 @@ class PreferencesTest < Minitest::Test
     create_file
     assert_equal File.expand_path("developer"), @preferences.project_folder
     assert_equal "Sublime", @preferences.editor
+  end
+
+  def test_edits_values
+    assert_equal File.expand_path("workspace"), @preferences.project_folder
+    assert_equal "Atom", @preferences.editor
+    @preferences.edit("editor", "Sublime")
+    assert_equal "Sublime", @preferences.editor
+    @preferences.edit("project_folder", "developer")
+    assert_equal "developer", @preferences.project_folder
+  end
+
+  def test_saves_only_modified_values
+    @preferences.edit("editor", "Sublime")
+    assert_equal "Sublime", @preferences.editor
+    @preferences.save
+    assert File.exists?(@config_file)
+    file = File.read(@config_file)
+    assert_equal "---\neditor: Sublime\n", file
   end
 end
