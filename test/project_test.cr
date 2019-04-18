@@ -25,4 +25,8 @@ class ProjectTest < Minitest::Test
     project.edit("editor", "Sublime")
     assert_equal "Sublime", project.editor
   end
+
+  def test_adds_existing_project
+    project = Project.add("test")
+  end
 end
