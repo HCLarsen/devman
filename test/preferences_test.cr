@@ -1,6 +1,6 @@
 require "minitest/autorun"
 
-require "/../src/preferences"
+require "/../src/devman/preferences"
 
 class PreferencesTest < Minitest::Test
   def initialize(arg)

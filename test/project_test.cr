@@ -1,6 +1,6 @@
 require "minitest/autorun"
 
-require "/../src/project"
+require "/../src/devman/project"
 
 class ProjectTest < Minitest::Test
   def initialize(arg)
