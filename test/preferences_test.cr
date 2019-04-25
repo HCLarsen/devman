@@ -3,17 +3,12 @@ require "minitest/autorun"
 require "/../src/devman/preferences"
 
 class PreferencesTest < Minitest::Test
+  @config_file = File.expand_path("~/.dmconfig")
+
   def initialize(arg)
     super(arg)
 
-    @home_folder = File.expand_path("~")
-    @config_file = ".dmconfig"
-
     @preferences = Preferences.load
-  end
-
-  def setup
-    Dir.cd(@home_folder)
   end
 
   def teardown
@@ -23,7 +18,7 @@ class PreferencesTest < Minitest::Test
   end
 
   def create_file
-    File.write(".dmconfig", "project_folder: #{File.expand_path("developer")}\neditor: Sublime")
+    File.write(@config_file, "project_folder: #{File.expand_path("developer")}\neditor: Sublime")
     @preferences = Preferences.load
   end
 
