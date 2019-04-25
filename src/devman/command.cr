@@ -32,6 +32,5 @@ class Devman::Command
 
   def edit_config(args)
     @preferences.edit(args[0], args[1])
-    @preferences.save
   end
 end

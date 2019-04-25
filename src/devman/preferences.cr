@@ -2,16 +2,14 @@ require "yaml"
 
 struct Preferences
   @@instance : Preferences?
+  @@filename = File.expand_path("~/.dmconfig")
 
   YAML.mapping(
     project_folder: {type: String?, getter: false},
     editor: {type: String?, getter: false}
   )
 
-  private def initialize
-    @project_folder = File.expand_path("workspace")
-    @editor = "Atom"
-  end
+  private def initialize; end
 
   def project_folder : String
     @project_folder || File.expand_path("workspace")
@@ -23,9 +21,8 @@ struct Preferences
 
   # Loads the preferences from the config file.
   def self.load : Preferences
-    filename = File.expand_path("~/.dmconfig")
     if @@instance.nil?
-      content = File.exists?(filename) ? File.read(filename) : ""
+      content = File.exists?(@@filename) ? File.read(@@filename) : ""
       from_yaml(content)
     else
       @@instance.not_nil!
@@ -39,11 +36,13 @@ struct Preferences
     when "editor"
       @editor = value
     end
+
+    save
   end
 
-  def save
+  private def save
     yaml = to_yaml
-    File.write(File.expand_path("~/.dmconfig"), yaml)
+    File.write(@@filename, yaml)
   end
 
   # Raises an Error to prevent cloning.

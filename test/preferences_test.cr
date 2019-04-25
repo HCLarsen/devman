@@ -64,7 +64,6 @@ class PreferencesTest < Minitest::Test
   def test_saves_only_modified_values
     @preferences.edit("editor", "Sublime")
     assert_equal "Sublime", @preferences.editor
-    @preferences.save
     assert File.exists?(@config_file)
     file = File.read(@config_file)
     assert_equal "---\neditor: Sublime\n", file
