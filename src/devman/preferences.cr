@@ -43,7 +43,7 @@ struct Preferences
 
   def save
     yaml = to_yaml
-    File.write(".dmconfig", yaml)
+    File.write(File.expand_path("~/.dmconfig"), yaml)
   end
 
   # Raises an Error to prevent cloning.
