@@ -23,7 +23,7 @@ struct Preferences
 
   # Loads the preferences from the config file.
   def self.load : Preferences
-    filename = ".dmconfig"
+    filename = File.expand_path("~/.dmconfig")
     if @@instance.nil?
       content = File.exists?(filename) ? File.read(filename) : ""
       from_yaml(content)
