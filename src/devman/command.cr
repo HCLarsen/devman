@@ -1,5 +1,5 @@
 module Devman
-  VERSION = "0.1.0"
+  VERSION = YAML.parse(File.read("shard.yml"))["version"].as_s
 end
 
 class Devman::Command
