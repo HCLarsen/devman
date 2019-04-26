@@ -1,3 +1,7 @@
+module Devman
+  VERSION = "0.1.0"
+end
+
 class Devman::Command
   USAGE = <<-USAGE
     Usage: devman [command] [arguments]
@@ -31,6 +35,10 @@ class Devman::Command
   end
 
   def edit_config(args)
-    @preferences.edit(args[0], args[1])
+    if args.size == 2
+      @preferences.edit(args[0], args[1])
+    else
+      puts "Usage: devman -c [attribute] [new value]"
+    end
   end
 end

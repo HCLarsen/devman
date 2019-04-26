@@ -13,12 +13,21 @@ class CommandTest < Minitest::Test
 
   def test_edits_config_file
     File.write(@config_file, "editor: Sublime")
-    system(%(crystal run src/devman.cr -- -c editor "Visual Studio Code"))
+    Devman::Command.run ["-c", "editor", "Visual Studio Code"]
     file = File.read(@config_file)
     assert_equal "---\neditor: Visual Studio Code\n", file
   end
 
   def test_creates_new_config_file_on_edit
+    refute File.exists?(@config_file)
+    Devman::Command.run ["-c", "editor", "Visual Studio Code"]
+    assert File.exists?(@config_file)
+  end
+
+  def test_reveals_usage_for_editting_config
+    usage = "Usage: devman -c [attribute] [new value]\n"
+    response = `crystal run src/devman.cr -- -c`
+    assert_equal usage, response
   end
 
   def test_returns_version_number
