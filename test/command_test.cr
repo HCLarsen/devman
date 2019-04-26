@@ -15,7 +15,7 @@ class CommandTest < Minitest::Test
     File.write(@config_file, "editor: Sublime")
     Devman::Command.run ["-c", "editor", "Visual Studio Code"]
     file = File.read(@config_file)
-    assert_equal "---\neditor: Visual Studio Code\n", file
+    assert_equal "editor: Visual Studio Code\n", file
   end
 
   def test_creates_new_config_file_on_edit

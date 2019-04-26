@@ -41,7 +41,7 @@ struct Preferences
   end
 
   private def save
-    yaml = to_yaml
+    yaml = to_yaml.lchop("---\n")
     File.write(@@filename, yaml)
   end
 

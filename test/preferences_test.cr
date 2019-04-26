@@ -66,6 +66,6 @@ class PreferencesTest < Minitest::Test
     assert_equal "Sublime", @preferences.editor
     assert File.exists?(@config_file)
     file = File.read(@config_file)
-    assert_equal "---\neditor: Sublime\n", file
+    assert_equal "editor: Sublime\n", file
   end
 end

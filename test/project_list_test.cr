@@ -7,7 +7,6 @@ class ProjectListTest < Minitest::Test
     super(arg)
 
     yaml = <<-YAML
-    ---
     projects:
       Crystal Core:
         folder: crystal
@@ -30,7 +29,6 @@ class ProjectListTest < Minitest::Test
 
   def test_loads_projects_from_yaml
     yaml = <<-YAML
-    ---
     projects:
       Crystal Core:
         folder: crystal
