@@ -1,4 +1,5 @@
 require "minitest/autorun"
+require "./helpers/test_helper"
 
 require "/../src/devman/preferences"
 
@@ -43,6 +44,7 @@ class PreferencesTest < Minitest::Test
   end
 
   def test_default_editor
+    clear_files
     assert_equal "Atom", @preferences.editor
   end
 

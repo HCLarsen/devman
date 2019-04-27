@@ -1,4 +1,5 @@
 require "minitest/autorun"
+require "./helpers/test_helper"
 
 require "/../src/devman/command"
 
@@ -6,9 +7,6 @@ class CommandTest < Minitest::Test
   @config_file = File.expand_path("~/.dmconfig")
 
   def teardown
-    if File.exists?(@config_file)
-      File.delete(@config_file)
-    end
   end
 
   def test_edits_config_file
@@ -19,7 +17,7 @@ class CommandTest < Minitest::Test
   end
 
   def test_creates_new_config_file_on_edit
-    refute File.exists?(@config_file)
+    clear_files
     Devman::Command.run ["-c", "editor", "Visual Studio Code"]
     assert File.exists?(@config_file)
   end
