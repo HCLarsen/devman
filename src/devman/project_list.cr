@@ -15,4 +15,15 @@ class ProjectList
   def dup
     raise "Can't dup instance of singleton #{self.class}"
   end
+
+  def open(name : String, preferences)
+    project = @projects[name]
+    folder = project.folder
+    editor = project.editor || preferences.editor
+    terminals = project.terminals || 0
+    terminals.times do
+      system("open -a Terminal #{folder}")
+    end
+    system("open -a #{editor} #{folder}")
+  end
 end
