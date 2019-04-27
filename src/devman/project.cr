@@ -17,7 +17,11 @@ struct Project
   def edit(attribute : String, value : String)
     case attribute
     when "folder"
-      @folder = value
+      if value.starts_with? "/"
+        @folder = value
+      else
+        @folder = File.expand_path("~/" + value)
+      end
     when "editor"
       @editor = value
     when "terminals"
