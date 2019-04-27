@@ -6,9 +6,6 @@ require "/../src/devman/command"
 class CommandTest < Minitest::Test
   @config_file = File.expand_path("~/.dmconfig")
 
-  def teardown
-  end
-
   def test_edits_config_file
     File.write(@config_file, "editor: Sublime")
     Devman::Command.run ["-c", "editor", "Visual Studio Code"]
