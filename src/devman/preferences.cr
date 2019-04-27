@@ -12,7 +12,7 @@ struct Preferences
   private def initialize; end
 
   def project_folder : String
-    @project_folder || File.expand_path("workspace")
+    @project_folder || File.expand_path("~/workspace")
   end
 
   def editor : String
@@ -32,7 +32,11 @@ struct Preferences
   def edit(attribute : String, value : String)
     case attribute
     when "project_folder"
-      @project_folder = value
+      if value.starts_with? "/"
+        @project_folder = value
+      else
+        @project_folder = File.expand_path("~/" + value)
+      end
     when "editor"
       @editor = value
     end

@@ -38,7 +38,7 @@ class PreferencesTest < Minitest::Test
 
   def test_default_project_folder_location
     whoami = `whoami`.chomp
-    folder = File.expand_path("workspace")
+    folder = File.expand_path("~/workspace")
     assert_equal folder, @preferences.project_folder
   end
 
@@ -53,12 +53,19 @@ class PreferencesTest < Minitest::Test
   end
 
   def test_edits_values
-    assert_equal File.expand_path("workspace"), @preferences.project_folder
+    assert_equal File.expand_path("~/workspace"), @preferences.project_folder
     assert_equal "Atom", @preferences.editor
     @preferences.edit("editor", "Sublime")
     assert_equal "Sublime", @preferences.editor
     @preferences.edit("project_folder", "developer")
-    assert_equal "developer", @preferences.project_folder
+    assert_equal File.expand_path("~/developer"), @preferences.project_folder
+  end
+
+  def test_differentiates_absolute_and_relative_paths
+    @preferences.edit("project_folder", "/software")
+    assert_equal "/software", @preferences.project_folder
+    @preferences.edit("project_folder", "software")
+    assert_equal File.expand_path("~/software"), @preferences.project_folder
   end
 
   def test_saves_only_modified_values
