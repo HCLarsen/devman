@@ -9,17 +9,12 @@ class PreferencesTest < Minitest::Test
   def initialize(arg)
     super(arg)
 
+    clear_files
     @preferences = Preferences.load
   end
 
-  def teardown
-    if File.exists?(@config_file)
-      File.delete(@config_file)
-    end
-  end
-
   def create_file
-    File.write(@config_file, "project_folder: #{File.expand_path("developer")}\neditor: Sublime")
+    File.write(@config_file, "project_folder: #{File.expand_path("~/developer")}\neditor: Sublime")
     @preferences = Preferences.load
   end
 
@@ -38,19 +33,17 @@ class PreferencesTest < Minitest::Test
   end
 
   def test_default_project_folder_location
-    whoami = `whoami`.chomp
     folder = File.expand_path("~/workspace")
     assert_equal folder, @preferences.project_folder
   end
 
   def test_default_editor
-    clear_files
     assert_equal "Atom", @preferences.editor
   end
 
   def test_reads_config_file
     create_file
-    assert_equal File.expand_path("developer"), @preferences.project_folder
+    assert_equal File.expand_path("~/developer"), @preferences.project_folder
     assert_equal "Sublime", @preferences.editor
   end
 

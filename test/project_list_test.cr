@@ -9,6 +9,7 @@ class ProjectListTest < Minitest::Test
   def initialize(arg)
     super(arg)
 
+    clear_files
     @preferences = Preferences.load
 
     @yaml = <<-YAML
