@@ -1,14 +1,9 @@
 require "minitest/autorun"
+require "./helpers/test_helper"
 
 require "/../src/devman/project_list"
 
-class ProjectList
-  class_property output = [] of String
-  def system(command : String, args = nil) : Bool
-    @@output << command
-    return true
-  end
-end
+mock_system("ProjectList")
 
 class ProjectListTest < Minitest::Test
   def initialize(arg)
