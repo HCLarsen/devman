@@ -10,6 +10,10 @@ class ProjectList
     super
   end
 
+  private def initialize
+    @projects = {} of String => Project
+  end
+
   def size : Int32
     @projects.size
   end
