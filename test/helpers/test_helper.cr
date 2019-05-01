@@ -10,7 +10,13 @@ end
 
 def clear_files
   config_file = File.expand_path("~/.dmconfig")
+  projects_file = File.expand_path("~/.dmprojects")
+
   if File.exists?(config_file)
     File.delete(config_file)
+  end
+
+  if File.exists?(projects_file)
+    File.delete(projects_file)
   end
 end

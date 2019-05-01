@@ -6,13 +6,15 @@ require "/../src/devman/project_list"
 mock_system("ProjectList")
 
 class ProjectListTest < Minitest::Test
+  @projects_file = File.expand_path("~/.dmprojects")
+
   def initialize(arg)
     super(arg)
 
     clear_files
     @preferences = Preferences.load
 
-    @yaml = <<-YAML
+    yaml = <<-YAML
     projects:
       Crystal Core:
         folder: #{File.expand_path("~/workspace/crystal")}
@@ -22,7 +24,8 @@ class ProjectListTest < Minitest::Test
         folder: #{File.expand_path("~/workspace/minitest.cr")}
         terminals: 1
     YAML
-    @projects = ProjectList.from_yaml(@yaml)
+    File.write(@projects_file, yaml)
+    @projects = ProjectList.load
   end
 
   def teardown
@@ -36,10 +39,9 @@ class ProjectListTest < Minitest::Test
     assert_equal "Can't dup instance of singleton ProjectList", error.message
   end
 
-  def test_loads_projects_from_yaml
-    projects = ProjectList.from_yaml(@yaml)
-    assert_equal 2, projects.size
-    first = projects["Crystal Core"]
+  def test_reads_projects_file
+    assert_equal 2, @projects.size
+    first = @projects["Crystal Core"]
     assert_equal File.expand_path("~/workspace/crystal"), first.folder
     assert_equal "Atom", first.editor
     assert_equal 2, first.terminals
