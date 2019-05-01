@@ -36,7 +36,8 @@ class ProjectList
     end
   end
 
-  def open(name : String, preferences)
+  def open(name : String)
+    preferences = Preferences.load
     project = @projects[name]
     folder = project.folder
     editor = project.editor || preferences.editor

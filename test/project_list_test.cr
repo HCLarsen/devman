@@ -12,7 +12,6 @@ class ProjectListTest < Minitest::Test
     super(arg)
 
     clear_files
-    @preferences = Preferences.load
 
     yaml = <<-YAML
     projects:
@@ -48,12 +47,12 @@ class ProjectListTest < Minitest::Test
   end
 
   def test_opens_project
-    @projects.open("Crystal Core", @preferences)
+    @projects.open("Crystal Core")
     assert_equal ["open -a Terminal /Users/chrislarsen/workspace/crystal", "open -a Terminal /Users/chrislarsen/workspace/crystal", "open -a Atom /Users/chrislarsen/workspace/crystal"], ProjectList.output
   end
 
   def test_opens_with_defaults
-    @projects.open("Minitest Crystal", @preferences)
+    @projects.open("Minitest Crystal")
     assert_equal ["open -a Terminal /Users/chrislarsen/workspace/minitest.cr", "open -a Atom /Users/chrislarsen/workspace/minitest.cr"], ProjectList.output
   end
 end
