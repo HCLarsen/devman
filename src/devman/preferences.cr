@@ -19,14 +19,18 @@ struct Preferences
     @editor || "Atom"
   end
 
-  # Loads the preferences from the config file.
-  def self.load : Preferences
+  def self.preferences : Preferences
     if @@instance.nil?
-      content = File.exists?(@@filename) ? File.read(@@filename) : ""
-      from_yaml(content)
+      @@instnce = Preferences.load
     else
       @@instance.not_nil!
     end
+  end
+
+  # Loads the preferences from the config file.
+  def self.load : Preferences
+    content = File.exists?(@@filename) ? File.read(@@filename) : ""
+    @@instnce = from_yaml(content)
   end
 
   def edit(attribute : String, value : String)
