@@ -9,6 +9,10 @@ struct Preferences
     editor: {type: String?, getter: false}
   )
 
+  private def self.from_yaml(string_or_io : String | IO)
+    super
+  end
+
   private def initialize; end
 
   def project_folder : String
