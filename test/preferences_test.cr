@@ -18,13 +18,6 @@ class PreferencesTest < Minitest::Test
     @preferences = Preferences.load
   end
 
-  def test_raise_error_on_clone
-    error = assert_raises do
-      @preferences.clone
-    end
-    assert_equal "Can't clone instance of singleton Preferences", error.message
-  end
-
   def test_raise_error_on_dup
     error = assert_raises do
       @preferences.dup

@@ -49,11 +49,6 @@ struct Preferences
     File.write(@@filename, yaml)
   end
 
-  # Raises an Error to prevent cloning.
-  def clone
-    raise "Can't clone instance of singleton #{self.class}"
-  end
-
   # Raises an Error to prevent duping.
   def dup
     raise "Can't dup instance of singleton #{self.class}"
