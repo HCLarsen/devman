@@ -31,8 +31,4 @@ class ProjectTest < Minitest::Test
     project.edit("folder", "/software")
     assert_equal "/software", project.folder
   end
-
-  def test_adds_existing_project
-    project = Project.add("test")
-  end
 end

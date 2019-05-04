@@ -7,11 +7,7 @@ struct Project
     terminals: Int32?,
   )
 
-  def initialize(@folder, @editor, @terminals)
-  end
-
-  def self.add(folder, editor = nil, terminals = nil)
-    self.new(folder, editor, terminals)
+  def initialize(@folder, @editor = nil, @terminals = nil)
   end
 
   def edit(attribute : String, value : String)
