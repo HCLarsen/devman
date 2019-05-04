@@ -5,6 +5,12 @@ require "/../src/devman/project_list"
 
 mock_system("ProjectList")
 
+class ProjectList
+  def self.reset
+    @@instance = nil
+  end
+end
+
 class ProjectListTest < Minitest::Test
   @projects_file = File.expand_path("~/.dmprojects")
 
@@ -29,6 +35,7 @@ class ProjectListTest < Minitest::Test
 
   def teardown
     ProjectList.output = [] of String
+    ProjectList.reset
   end
 
   def test_raise_error_on_dup
@@ -44,6 +51,32 @@ class ProjectListTest < Minitest::Test
     assert_equal File.expand_path("~/workspace/crystal"), first.folder
     assert_equal "Atom", first.editor
     assert_equal 2, first.terminals
+  end
+
+  def test_adds_new_project_with_default_folder
+    @projects.add("Devman")
+    devman = @projects["Devman"]
+    assert_equal "devman", devman.folder
+  end
+
+  def test_adds_new_project_with_custom_settings
+    @projects.add("Devman", "devman-project")
+    devman = @projects["Devman"]
+    assert_equal "devman-project", devman.folder
+  end
+
+  def test_raises_error_on_duplicate_project_name
+    error = assert_raises do
+      @projects.add("Crystal Core", "crystal")
+    end
+    assert_equal "Project titled 'Crystal Core' already exists", error.message
+  end
+
+  def test_raises_error_for_default_folder_with_space
+    error = assert_raises do
+      @projects.add("Devman Project")
+    end
+    assert_equal "Whitespace not allowed in folder name", error.message
   end
 
   def test_opens_project

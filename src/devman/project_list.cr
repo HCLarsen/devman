@@ -36,6 +36,18 @@ class ProjectList
     end
   end
 
+  def add(name : String, folder = nil)
+    unless @projects.has_key? name
+      folder = folder || name.downcase
+      if folder =~ /\s/
+        raise "Whitespace not allowed in folder name"
+      end
+      @projects[name] = Project.new(folder)
+    else
+      raise "Project titled '#{name}' already exists"
+    end
+  end
+
   def open(name : String)
     preferences = Preferences.load
     project = @projects[name]
