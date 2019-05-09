@@ -5,12 +5,6 @@ require "/../src/devman/project_list"
 
 mock_system("ProjectList")
 
-class ProjectList
-  def self.reset
-    @@instance = nil
-  end
-end
-
 class ProjectListTest < Minitest::Test
   @projects_file = File.expand_path("~/.dmprojects")
 
