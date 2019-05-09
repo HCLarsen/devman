@@ -11,10 +11,10 @@ class ProjectListTest < Minitest::Test
   def initialize(arg)
     super(arg)
 
-    clear_files
+    Preferences.reset
     ProjectList.reset
 
-    yaml = <<-YAML
+    @yaml = <<-YAML
     projects:
       Crystal Core:
         folder: #{File.expand_path("~/workspace/crystal")}
@@ -24,8 +24,9 @@ class ProjectListTest < Minitest::Test
         folder: #{File.expand_path("~/workspace/minitest.cr")}
         terminals: 1
     YAML
-    File.write(@projects_file, yaml)
+    File.write(@projects_file, @yaml)
     @projects = ProjectList.load
+    clear_files
   end
 
   def teardown
@@ -51,6 +52,9 @@ class ProjectListTest < Minitest::Test
     @projects.add("Devman")
     devman = @projects["Devman"]
     assert_equal "devman", devman.folder
+    assert File.exists?(@projects_file)
+    file = File.read(@projects_file)
+    assert_equal @yaml + "\n  Devman:\n    folder: devman\n", file
   end
 
   def test_adds_new_project_with_custom_settings

@@ -43,6 +43,7 @@ class ProjectList
         raise "Whitespace not allowed in folder name"
       end
       @projects[name] = Project.new(folder)
+      save
     else
       raise "Project titled '#{name}' already exists"
     end
@@ -58,5 +59,10 @@ class ProjectList
       system("open -a Terminal #{folder}")
     end
     system("open -a #{editor} #{folder}")
+  end
+
+  private def save
+    yaml = to_yaml.lchop("---\n")
+    File.write(@@filename, yaml)
   end
 end
