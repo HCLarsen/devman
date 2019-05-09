@@ -22,15 +22,24 @@ class Devman::Command
 
   def initialize(options : Array(String))
     @preferences = Preferences.load
+    @projects = ProjectList.load
 
     arg = options.shift?
     case arg
+    when "-o", "--open"
+      open_project(options)
     when "-c", "--config"
       edit_config(options)
     when "-v", "--version"
       puts Devman::VERSION
     when "-h", "--help", nil
       puts USAGE
+    end
+  end
+
+  def open_project(args)
+    if args.size == 1
+      @projects.open(args[0])
     end
   end
 
