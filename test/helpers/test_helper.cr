@@ -4,6 +4,12 @@ class ProjectList
   end
 end
 
+struct Preferences
+  def self.reset
+    @@instance = nil
+  end
+end
+
 macro mock_system(class_name)
   class {{class_name.id}}
 	  class_property output = [] of String
