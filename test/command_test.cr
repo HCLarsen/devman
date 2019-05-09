@@ -13,6 +13,8 @@ class CommandTest < Minitest::Test
     super(arg)
 
     clear_files
+    Preferences.reset
+    ProjectList.reset
 
     yaml = <<-YAML
     projects:
@@ -27,9 +29,11 @@ class CommandTest < Minitest::Test
     File.write(@projects_file, yaml)
   end
 
+  def setup
+  end
+
   def teardown
     ProjectList.output = [] of String
-    ProjectList.reset
   end
 
   def test_edits_config_file

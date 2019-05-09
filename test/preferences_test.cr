@@ -10,9 +10,6 @@ class PreferencesTest < Minitest::Test
     super(arg)
 
     clear_files
-  end
-
-  def setup
     Preferences.reset
   end
 

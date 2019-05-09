@@ -12,6 +12,7 @@ class ProjectListTest < Minitest::Test
     super(arg)
 
     clear_files
+    ProjectList.reset
 
     yaml = <<-YAML
     projects:
@@ -29,7 +30,6 @@ class ProjectListTest < Minitest::Test
 
   def teardown
     ProjectList.output = [] of String
-    ProjectList.reset
   end
 
   def test_raise_error_on_dup
