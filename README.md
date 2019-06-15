@@ -14,7 +14,7 @@ You may also change the configuration for the tool, or for the individual projec
 
 ### Creating a new project
 
-You can create a new project using the -n(--new) flag. Format for this flag is `devman -n [project ID] [language/platform] [project name]`. The project ID is the name used by DevMan to keep track of this project, while the project name is what will be used when creating the project in your chosen language or framework. If the project name is omitted, then it is taken to be the same as the project ID.
+You can create a new project using the -n(--new) flag. Format for this flag is `devman -n [project ID] [language/platform] [project name]`. The project ID is the name used by DevMan to keep track of this project, while the project name is what will be used when creating the project in your chosen language or framework. If the project name is omitted, then it is taken to be the same as the project ID, but in lowercase. If you wish your project name and folder to be in uppercase, you must specify that as the project name.
 
 However, if this is the case, any spaces in the project ID will generate an error, as most software frameworks don't allow spaces in the project names. Otherwise, the project ID may have spaces, as long as the entire ID is wrapped in single or double quotes. The first example will create the project, however the second example will generate an error.
 
@@ -27,7 +27,7 @@ devman -n "Test Project" Crystal
 
 ### Adding an existing project to the devman configuration
 
-The Development Manager keeps track of projects through an internal list. You can add an existing project on your computer to this list using the -a(--add) flag. The format for this flag is `devman -a [project ID] [project folder]`. As with the -n flag, if the project folder is omitted, then it is taken to assume that the project ID and project folder are the same. As such, devman will return an error if there are any spaces in the project ID.
+The Development Manager keeps track of projects through an internal list. You can add an existing project on your computer to this list using the -a(--add) flag. The format for this flag is `devman -a [project ID] [project folder]`. As with the -n flag, if the project folder is omitted, then it is taken to assume that the project folder is the lowercase of the project ID. As such, devman will return an error if there are any spaces in the project ID.
 
 ```
 devman - a "Test Project" test
