@@ -16,7 +16,7 @@ class CommandTest < Minitest::Test
     Preferences.reset
     ProjectList.reset
 
-    yaml = <<-YAML
+    @yaml = <<-YAML
     projects:
       Crystal Core:
         folder: #{File.expand_path("~/workspace/crystal")}
@@ -26,7 +26,7 @@ class CommandTest < Minitest::Test
         folder: #{File.expand_path("~/workspace/minitest.cr")}
         terminals: 1
     YAML
-    File.write(@projects_file, yaml)
+    File.write(@projects_file, @yaml)
   end
 
   def setup
@@ -55,6 +55,9 @@ class CommandTest < Minitest::Test
   end
 
   def test_adds_new_project
-    Devman::Command.run ["-o", "Crystal Core"]
+    Devman::Command.run ["-a", "Devman"]
+    assert File.exists?(@projects_file)
+    file = File.read(@projects_file)
+    assert_equal @yaml + "\n  Devman:\n    folder: devman\n", file
   end
 end

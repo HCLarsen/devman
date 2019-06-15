@@ -26,6 +26,8 @@ class Devman::Command
 
     arg = options.shift?
     case arg
+    when "-a", "--add"
+      add_project(options)
     when "-o", "--open"
       open_project(options)
     when "-c", "--config"
@@ -34,6 +36,14 @@ class Devman::Command
       puts Devman::VERSION
     when "-h", "--help", nil
       puts USAGE
+    end
+  end
+
+  def add_project(args)
+    begin
+      @projects.add(args[0], args[1]?)
+    rescue ex
+      puts ex.message
     end
   end
 

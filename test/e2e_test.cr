@@ -24,5 +24,11 @@ class E2ETEST < Minitest::Test
     usage = Devman::Command::USAGE + "\n"
     response = `crystal run src/devman.cr`
     assert_equal usage, response
-  end  
+  end
+
+  def test_outputs_error_for_duplicate_project
+    `crystal run src/devman.cr -- -a "Crystal Core" crystal`
+    response = `crystal run src/devman.cr -- -a "Crystal Core" crystal`
+    assert_equal "Project titled 'Crystal Core' already exists\n", response
+  end
 end
